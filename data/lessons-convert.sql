@@ -1,0 +1,13 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE `knex_migrations` (`id` integer not null primary key autoincrement, `name` varchar(255), `batch` integer, `migration_time` datetime);
+INSERT INTO knex_migrations VALUES(1,'20210106162645_create-lessons-table.js',1,1609968928252);
+CREATE TABLE `knex_migrations_lock` (`index` integer not null primary key autoincrement, `is_locked` integer);
+INSERT INTO knex_migrations_lock VALUES(1,0);
+CREATE TABLE `lessons` (`id` integer not null primary key autoincrement, `name` text not null, `created_at` datetime not null default CURRENT_TIMESTAMP, `updated_at` datetime not null default CURRENT_TIMESTAMP);
+CREATE TABLE `messages` (`id` integer not null primary key autoincrement, `sender` varchar(255) not null, `text` text, `created_at` datetime not null default CURRENT_TIMESTAMP, `updated_at` datetime not null default CURRENT_TIMESTAMP, `lesson_id` integer, foreign key(`lesson_id`) references `lessons`(`id`) on delete CASCADE on update CASCADE);
+DELETE FROM sqlite_sequence;
+INSERT INTO sqlite_sequence VALUES('knex_migrations_lock',1);
+INSERT INTO sqlite_sequence VALUES('knex_migrations',1);
+CREATE INDEX `messages_sender_index` on `messages` (`sender`);
+COMMIT;
