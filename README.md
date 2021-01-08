@@ -1,1 +1,1 @@
-# technomad-knex
+# sql-node-technomad

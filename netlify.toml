@@ -1,8 +1,8 @@
 # example netlify.toml
 [build]
-  command = "yarn run"
-  functions = "functions"
   publish = "."
+  command = "echo 'running...'"
+  functions = "functions"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
