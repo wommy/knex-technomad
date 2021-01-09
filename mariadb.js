@@ -1,27 +1,27 @@
-const mariadb = require('mariadb');
-require('dotenv').config()
+const mariadb = require('mariadb')
 
-//create connection
-const db = mariadb.createConnection({
-	user: 'root',
-	password: '',
-	// host: '45.33.74.134',
-	database: 'jegan_stock',
-})
-
-// connect
-db.connect( err => {
-	try {
-		console.log('its working')
-	} catch (err) { console.error(err) }
+const pool = mariadb.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER, 
+  password: process.env.DB_PWD,
+  database: 'test'
+  // socketPath: '/run/mysqld//mysqld.sock'
 })
 
 async function asyncFunction() {
-	let conn;
-	try {
-		conn = await pool.getConnection()
-		const rows = await conn.query("SELECT 1 as val")
-		console.log(rows)
-		const res = await conn.query("INSERT INTO myTable value (?, ?)")
-	}
+  let conn;
+  let sql = 'SELECT * FROM myTable'
+  try {
+	  conn = await pool.getConnection();
+	  const rows = await conn.query("SELECT 1 as val");
+	  console.log(rows); //[ {val: 1}, meta: ... ]
+	  const res = await conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"]);
+	  console.log(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
+  } catch (err) {
+	  throw err;
+  } finally {
+	  if (conn) return conn.end();
+  }
 }
+
+asyncFunction();
