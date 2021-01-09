@@ -1,13 +1,17 @@
 function getTodos(){
-	axios({
-		method: 'get',
-		url: 'https://jsonplaceholder.typicode.com/todos',
-		params: {
-			_limit: 5
-		}
-	}).then(
-		res => showOutput( res )
-	).catch( err => console.error( err ) )
+	// axios({
+	// 	method: 'get',
+	// 	url: 'https://jsonplaceholder.typicode.com/todos',
+	// 	params: {
+	// 		_limit: 5
+	// 	}
+	// }).then(
+	// 	res => showOutput( res )
+	// ).catch( err => console.error( err ) )
+	axios
+		.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
+		.then(res => showOutput( res ) )
+		.catch( err => console.error( err ) )
 }
 
 function showOutput(res) {
