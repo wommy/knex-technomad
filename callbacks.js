@@ -13,4 +13,14 @@ function getPosts(){
 	}, 1000)
 }
 
+function createPost(post) {
+	setTimeout( () => {
+		posts.push(post)
+	}, 2000)
+}
+
+createPost({
+	title: 'post three', body: 'this is post three'
+})
+
 getPosts()
