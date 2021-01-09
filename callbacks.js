@@ -13,14 +13,13 @@ function getPosts(){
 	}, 1000)
 }
 
-function createPost(post) {
+function createPost(post, callback) {
 	setTimeout( () => {
 		posts.push(post)
+		callback()
 	}, 2000)
 }
 
 createPost({
 	title: 'post three', body: 'this is post three'
-})
-
-getPosts()
+}, getPosts)
