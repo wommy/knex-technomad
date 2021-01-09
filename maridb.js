@@ -1,8 +1,19 @@
 const mariadb = require('mariadb');
+require('dotenv').config()
 
-const pool = mariadb.createPool({
+//create connection
+const db = mariadb.createConnection({
 	user: 'root',
 	password: '',
+	// host: '45.33.74.134',
+	database: 'jegan_stock',
+})
+
+// connect
+db.connect( err => {
+	try {
+		console.log('its working')
+	} catch (err) { console.error(err) }
 })
 
 async function asyncFunction() {
