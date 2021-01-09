@@ -9,18 +9,20 @@ const pool = mariadb.createPool({
 })
 
 async function asyncFunction() {
-  let conn;
+  let conn
   let sql = 'SELECT * FROM myTable'
   try {
-	  conn = await pool.getConnection();
-	  const rows = await conn.query("SELECT 1 as val");
-	  console.log(rows); //[ {val: 1}, meta: ... ]
-	  const res = await conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"]);
-	  console.log(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
+	  conn = await pool.getConnection()
+	  const rows = await conn.query(sql)
+    console.log(rows)
+    return rows
+	  // const res = await conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"])
+    // console.log(res)
+    // return res
   } catch (err) {
-	  throw err;
+	  throw err
   } finally {
-	  if (conn) return conn.end();
+	  if (conn) return conn.end()
   }
 }
 
